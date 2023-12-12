@@ -12,6 +12,8 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+# Ignore Google Cloud Translation API key file
+translate/homework10-407901-51543db07a37.json
 
 # Mono auto generated files
 mono_crash.*
