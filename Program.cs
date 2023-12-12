@@ -10,7 +10,7 @@ namespace TranslationApiDemo
 
         {
             // Set the path to your JSON key file
-            string keyFilePath = @"C:\Users\mliak\Documents\code\translate\homework10-407901-51543db07a37.json";
+            string keyFilePath = @"C:\Users\mliak\Documents\code\homework10-407901-51543db07a37.json";
 
             // Set the GOOGLE_APPLICATION_CREDENTIALS environment variable
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", keyFilePath);
