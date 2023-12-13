@@ -10,36 +10,28 @@ namespace TranslationApiDemo
 
 
         {
-            // Set the path to your JSON key file
             string keyFilePath = @"C:\Users\mliak\Documents\code\homework10-407901-51543db07a37.json";
 
-            // Set the GOOGLE_APPLICATION_CREDENTIALS environment variable
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", keyFilePath);
 
-            // Create a TranslationClient using the credentials
             var client = TranslationClient.Create();
 
             var supportedLanguages = client.ListLanguages();
 
-            // Display the list of supported languages to the user
             Console.WriteLine("Supported Languages:");
 
-            // Create a dictionary to store language code and name mappings
             var languageDictionary = new Dictionary<string, string>();
+
+            //here you see the list of languages
 
             foreach (var language in supportedLanguages)
             {
                 Console.WriteLine($"{language.Code}: {language.Name}");
                 languageDictionary[language.Code] = language.Name;
             }
-
-
-            // Get user input for the text to be translated
             Console.Write("Enter the text to be translated: ");
             string text = Console.ReadLine();
-
-            // Get user input for the target language
-            Console.Write("Enter the target language code (e.g., 'es' for Spanish): ");
+            Console.Write("Enter the target language code (for example: 'ru' for Russian): ");
             string targetLanguageCode = Console.ReadLine();
 
             if (languageDictionary.TryGetValue(targetLanguageCode, out var targetLanguageName))
@@ -54,7 +46,6 @@ namespace TranslationApiDemo
 
             try
             {
-                // Your translation logic goes here
                 var response = client.TranslateText(text, targetLanguageCode);
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
