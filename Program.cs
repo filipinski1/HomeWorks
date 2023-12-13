@@ -33,6 +33,7 @@ namespace TranslationApiDemo
                 languageDictionary[language.Code] = language.Name;
             }
 
+
             // Get user input for the text to be translated
             Console.Write("Enter the text to be translated: ");
             string text = Console.ReadLine();
