@@ -12,6 +12,7 @@ namespace HomeWorks
             var translationClient = connector.CreateConnection();
 
             var translator = new Translator(translationClient);
+            var history = new History(@"C:\Users\mliak\Documents\code\HomeWorks\TranslationHistory.txt");
 
             string detectedLanguage = translator.DetectLanguage("Hello, world!");
             Console.WriteLine($"Detected language: {detectedLanguage}");
@@ -22,7 +23,6 @@ namespace HomeWorks
             { 
                 Console.WriteLine(language);
             }
-
             Console.Write("Enter the text to be translated: ");
             string text = Console.ReadLine();
 
@@ -33,6 +33,13 @@ namespace HomeWorks
 
             Console.WriteLine($"Original: {text}");
             Console.WriteLine($"Translated: {translatedText}");
+
+            Console.Write("Do you want to see the translation history?");
+            string response = Console.ReadLine().ToLower();
+            if(response == "yes")
+            {
+                history.DisplayHistory();
+            }
         }
     }
 }
