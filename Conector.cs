@@ -18,6 +18,7 @@ namespace HomeWorks
         public TranslationClient CreateConnection()
         {
             return TranslationClient.Create();
+
         }
     }
 }

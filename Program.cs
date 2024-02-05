@@ -12,7 +12,7 @@ namespace HomeWorks
             var translationClient = connector.CreateConnection();
 
             var translator = new Translator(translationClient);
-            var history = new History(@"C:\Users\mliak\Documents\code\HomeWorks\TranslationHistory.txt");
+            var history = new HistoryService(@"C:\Users\mliak\Documents\code\HomeWorks\TranslationHistory.txt");
 
             string detectedLanguage = translator.DetectLanguage("Hello, world!");
             Console.WriteLine($"Detected language: {detectedLanguage}");

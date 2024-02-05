@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace HomeWorks
 {
-    internal class History
+    internal class HistoryService : IHistoryService
     {
         private string filePath;
-        public History(string filePath)
+        public HistoryService(string filePath)
         {
             this.filePath = filePath;
         }

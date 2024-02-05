@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace HomeWorks
 {
-    internal interface IHistoryService
+    internal interface IHistoryService 
     {
+        public void WriteHistory(string entry);
+        public void DisplayHistory();
+
     }
 }
+   
