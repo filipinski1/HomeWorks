@@ -1,62 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using Google.Cloud.Translation.V2;
 
-namespace TranslationApiDemo
+namespace HomeWorks
 {
     class Program
     {
         static void Main(string[] args)
-
-
         {
             string keyFilePath = @"C:\Users\mliak\Documents\code\homework10-407901-51543db07a37.json";
 
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", keyFilePath);
+            IConector connector = new Connector(keyFilePath);
+            var translationClient = connector.CreateConnection();
 
-            var client = TranslationClient.Create();
+            var translator = new Translator(translationClient);
+            var history = new HistoryService(@"C:\Users\mliak\Documents\code\HomeWorks\TranslationHistory.txt");
 
-            var supportedLanguages = client.ListLanguages();
+            string detectedLanguage = translator.DetectLanguage("Hello, world!");
+            Console.WriteLine($"Detected language: {detectedLanguage}");
 
-            Console.WriteLine("Supported Languages:");
-
-            var languageDictionary = new Dictionary<string, string>();
-
-            //here you see the list of languages
-
-            foreach (var language in supportedLanguages)
-            {
-                Console.WriteLine($"{language.Code}: {language.Name}");
-                languageDictionary[language.Code] = language.Name;
+            var translationLanguages = translator.GetTranslationLanguages();
+            Console.WriteLine("Supported translation languages:");
+            foreach (var language in translationLanguages)
+            { 
+                Console.WriteLine(language);
             }
             Console.Write("Enter the text to be translated: ");
             string text = Console.ReadLine();
-            Console.Write("Enter the target language code (for example: 'ru' for Russian): ");
+
+            Console.Write("Enter the target language code: ");
             string targetLanguageCode = Console.ReadLine();
 
-            if (languageDictionary.TryGetValue(targetLanguageCode, out var targetLanguageName))
-            {
-                Console.WriteLine($"Selected language: {targetLanguageName}");
-            }
-            else
-            {
-                Console.WriteLine("Invalid language code. Using default.");
-                targetLanguageCode = "en"; // Use English as the default language
-            }
+            string translatedText = translator.Translate(text, targetLanguageCode);
 
-            try
-            {
-                var response = client.TranslateText(text, targetLanguageCode);
-                Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine($"Original: {text}");
+            Console.WriteLine($"Translated: {translatedText}");
 
-                Console.WriteLine($"Original: {text}");
-                Console.WriteLine($"Translated: {response.TranslatedText}");
-            }
-            catch (Exception ex)
+            Console.Write("Do you want to see the translation history?");
+            string response = Console.ReadLine().ToLower();
+            if(response == "yes")
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                history.DisplayHistory();
             }
         }
     }
-    }
-
+}
